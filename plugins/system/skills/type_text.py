@@ -1,4 +1,5 @@
 import time
+
 import pyautogui
 import pyperclip
 
@@ -7,8 +8,15 @@ from interfaces.skill import Skill
 
 class TypeTextSkill(Skill):
     """
-    Навык для диктовки и ввода текста с клавиатуры.
-    Обходит баги раскладки Windows через буфер обмена.
+    Диктовка и вставка текста в активное поле.
+
+    Используется:
+
+        "напечатай привет"
+
+    Текст вставляется через буфер обмена,
+    поэтому русская раскладка Windows
+    не мешает вводу.
     """
 
     @property
@@ -19,23 +27,61 @@ class TypeTextSkill(Skill):
     def skill_id(self) -> str:
         return "system.type_text"
 
-    def execute(self, text: str = "", **kwargs) -> str:
+    def execute(
+        self,
+        text: str = "",
+        **kwargs,
+    ) -> str:
+
         text = text.strip()
 
         if not text:
-            return "Текст для диктовки не передан."
+            return (
+                "Текст для диктовки "
+                "не передан."
+            )
 
-        old_clipboard = pyperclip.paste()
-        
+        # Сохраняем старый буфер обмена,
+        # чтобы помощник его не уничтожил.
         try:
+            old_clipboard = (
+                pyperclip.paste()
+            )
+        except Exception:
+            old_clipboard = ""
+
+        try:
+            # Кладём текст в буфер.
             pyperclip.copy(text)
+
+            # Небольшая задержка нужна,
+            # чтобы Windows успела обновить
+            # clipboard.
             time.sleep(0.1)
-            
-            pyautogui.hotkey('ctrl', 'v')
+
+            # Вставляем в активное окно.
+            pyautogui.hotkey(
+                "ctrl",
+                "v",
+            )
+
             time.sleep(0.1)
-            
-            return f"Текст напечатан: {text}"
-        except Exception as e:
-            return f"Ошибка при вводе текста: {e}"
+
+            return (
+                f"Текст напечатан: {text}"
+            )
+
+        except Exception as error:
+            return (
+                "Ошибка при вводе текста: "
+                f"{error}"
+            )
+
         finally:
-            pyperclip.copy(old_clipboard)
+            # Возвращаем старый clipboard.
+            try:
+                pyperclip.copy(
+                    old_clipboard
+                )
+            except Exception:
+                pass
