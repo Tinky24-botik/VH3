@@ -1,0 +1,36 @@
+{
+    "trigger": "лёня",
+    "stt_mode": "offline",
+    "model_path": "model",
+    "small_model_path": "model_small",
+    "contacts": {
+        "любимка": "@schannaro",
+        "мама": "+375297164908"
+    },
+    "programs": {
+        "блокнот": "notepad.exe",
+        "калькулятор": "calc.exe",
+        "фотошоп": "C:\\Program Files\\Adobe\\Adobe Photoshop 2021\\Photoshop.exe",
+        "хром": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        "опера": "C:\\Users\\User\\AppData\\Local\\Programs\\Opera GX\\opera.exe",
+        "телеграм": "C:\\Users\\User\\AppData\\Roaming\\Telegram Desktop\\Telegram.exe"
+    },
+    "aliases": {
+        "хром": "chrome",
+        "телеграм": "telegram",
+        "дискорд": "discord",
+        "стим": "steam",
+        "ворд": "word",
+        "спотифай": "spotify",
+        "эксель": "exel"
+    },
+    "sites": {
+        "ютуб": "https://www.youtube.com",
+        "гугл": "https://www.google.com",
+        "вконтакте": "https://vk.com",
+        "дискорд": "https://discord.com/app",
+        "реддит": "https://www.reddit.com"
+    },
+    "show_indicator": true,
+    "show_chat": true
+}
